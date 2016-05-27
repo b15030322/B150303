@@ -5,7 +5,7 @@ int  createFile(Player pla[ ])              /*½¨Á¢³õÊ¼µÄÊı¾İÎÄ¼ş*/
 {
 	FILE *fp;
 	int n;
-  	if((fp=fopen("F:\\GONG\\player.txt", "wb")) == NULL) /*Ö¸¶¨ºÃÎÄ¼şÃû£¬ÒÔĞ´Èë·½Ê½´ò¿ª*/
+  	if((fp=fopen("F:\\GONG\\player.dat", "wb")) == NULL) /*Ö¸¶¨ºÃÎÄ¼şÃû£¬ÒÔĞ´Èë·½Ê½´ò¿ª*/
 	{
 	    printf("can not open file !\n");         /*Èô´ò¿ªÊ§°Ü£¬Êä³öÌáÊ¾ĞÅÏ¢*/
 	    exit(0);                           /*È»ºóÍË³ö*/
@@ -20,7 +20,7 @@ int readFile(Player pla[ ] )                     /*½«ÎÄ¼şÖĞµÄÄÚÈİ¶Á³öÖÃÓÚ½á¹¹ÌåÊ
 {
    	FILE *fp;
 	int i=0;
-	if((fp=fopen("F:GONG\\player.txt\\", "rb")) == NULL)  /*ÒÔ¶ÁµÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
+	if((fp=fopen("F:\\GONG\\player.dat", "rb")) == NULL)  /*ÒÔ¶ÁµÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
 	{
 	    printf("file does not exist,create it first:\n");  /*Èç¹û´ò¿ªÊ§°ÜÊä³öÌáÊ¾ĞÅÏ¢*/
 	    return 0;                              /*È»ºó·µ»Ø0*/
@@ -38,7 +38,7 @@ int readFile(Player pla[ ] )                     /*½«ÎÄ¼şÖĞµÄÄÚÈİ¶Á³öÖÃÓÚ½á¹¹ÌåÊ
 void saveFile(Player pla[],int n)                  /*½«½á¹¹ÌåÊı×éµÄÄÚÈİĞ´ÈëÎÄ¼ş*/
 {   			
   	FILE *fp;	
-   	if((fp=fopen("F:\\GONG\\player.txt\\", "wb")) == NULL) /*ÒÔĞ´µÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
+   	if((fp=fopen("F:\\GONG\\player.dat", "wb")) == NULL) /*ÒÔĞ´µÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
 	{
 		printf("can not open file !\n");           /*Èç¹û´ò¿ªÊ§°Ü£¬Êä³öÌáÊ¾ĞÅÏ¢*/
 		exit(0);                            /*È»ºóÍË³ö*/

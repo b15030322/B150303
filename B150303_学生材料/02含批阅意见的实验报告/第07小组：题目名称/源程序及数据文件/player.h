@@ -9,8 +9,7 @@ struct Player                   /*球员记录的数据域*/
 		char pos[10];
 		char team[20];
         int height;
-		int weight;
-		int score[3];
+		int weight;		
 		int ascore;
         int rebound;
         int assist;
@@ -18,6 +17,7 @@ struct Player                   /*球员记录的数据域*/
 		int appearance;
 		int total;
 		int rank;
+		int score[3];
 };
 typedef struct Player Player;
 #define sizePla sizeof(Player)      /*一个球员记录所需要的内存空间大小*/
