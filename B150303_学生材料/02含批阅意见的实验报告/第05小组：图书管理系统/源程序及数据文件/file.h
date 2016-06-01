@@ -6,14 +6,14 @@ int  createFile(Book boo[ ])              /*½¨Á¢³õÊ¼µÄÊı¾İÎÄ¼ş*/
 {
 	FILE *fp;
 	int n;
-   	if((fp=fopen("d:\\book.dat", "wb")) == NULL) /*Ö¸¶¨ºÃÎÄ¼şÃû£¬ÒÔĞ´Èë·½Ê½´ò¿ª*/
+   	if((fp=fopen("C:\\Users\\wc\\Desktop\\ĞÂ½¨ÎÄ¼ş¼Ğ\\Í¼Êé¹ÜÀíÏµÍ³.txt", "wb")) == NULL) /*Ö¸¶¨ºÃÎÄ¼şÃû£¬ÒÔĞ´Èë·½Ê½´ò¿ª*/
 	{
 	    printf("can not open file !\n");         /*Èô´ò¿ªÊ§°Ü£¬Êä³öÌáÊ¾ĞÅÏ¢*/
 	    exit(0);                           /*È»ºóÍË³ö*/
     	}
 	printf("input books\' information:\n");
 	n=readBoo(boo,NUM);                /*µ÷ÓÃbook.hÖĞµÄº¯Êı¶ÁÊı¾İ*/
-fwrite(boo,sizeBoo,n,fp);                  /*½«¸Õ²Å¶ÁÈëµÄËùÓĞ¼ÇÂ¼Ò»´ÎĞÔĞ´ÈëÎÄ¼ş*/
+	fwrite(boo,sizeBoo,n,fp);                  /*½«¸Õ²Å¶ÁÈëµÄËùÓĞ¼ÇÂ¼Ò»´ÎĞÔĞ´ÈëÎÄ¼ş*/
  	fclose(fp);                             /*¹Ø±ÕÎÄ¼ş*/
 	 return n;
 }
@@ -22,7 +22,7 @@ int readFile(Book boo[ ] )                     /*½«ÎÄ¼şÖĞµÄÄÚÈİ¶Á³öÖÃÓÚ½á¹¹ÌåÊı×
 {
    	FILE *fp;
 	int i=0;
-	if((fp=fopen("d:\\book.dat", "rb")) == NULL)  /*ÒÔ¶ÁµÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
+	if((fp=fopen("C:\\Users\\wc\\Desktop\\ĞÂ½¨ÎÄ¼ş¼Ğ\\Í¼Êé¹ÜÀíÏµÍ³.tx", "rb")) == NULL)  /*ÒÔ¶ÁµÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
 	{
 	    printf("file does not exist,create it first:\n");  /*Èç¹û´ò¿ªÊ§°ÜÊä³öÌáÊ¾ĞÅÏ¢*/
 	    return 0;                              /*È»ºó·µ»Ø0*/
@@ -40,7 +40,7 @@ int readFile(Book boo[ ] )                     /*½«ÎÄ¼şÖĞµÄÄÚÈİ¶Á³öÖÃÓÚ½á¹¹ÌåÊı×
 void saveFile(Book boo[],int n)                  /*½«½á¹¹ÌåÊı×éµÄÄÚÈİĞ´ÈëÎÄ¼ş*/
 {   			
   	FILE *fp;	
-   	if((fp=fopen("d:\\book.dat", "wb")) == NULL) /*ÒÔĞ´µÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
+   	if((fp=fopen("C:\\Users\\wc\\Desktop\\ĞÂ½¨ÎÄ¼ş¼Ğ\\Í¼Êé¹ÜÀíÏµÍ³.tx", "wb")) == NULL) /*ÒÔĞ´µÄ·½Ê½´ò¿ªÖ¸¶¨ÎÄ¼ş*/
 	{
 		printf("can not open file !\n");           /*Èç¹û´ò¿ªÊ§°Ü£¬Êä³öÌáÊ¾ĞÅÏ¢*/
 		exit(0);                            /*È»ºóÍË³ö*/
