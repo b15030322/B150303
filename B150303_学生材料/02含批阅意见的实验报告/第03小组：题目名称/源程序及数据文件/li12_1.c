@@ -1,220 +1,406 @@
-/*li12_1.c*/
-#include<stdio.h>
-#include<stdlib.h>
+#include <windows.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include<conio.h>
+
+
+#include "SeqList.h"
 #include"file.h"
-#include"student.h"
+# define MaxSize 200
 
-void printHead( )      /*打印学生信息的表头*/
+
+int PASS;           
+SeqList queueList;
+//ListInitiate(&queueList);
+
+int num1=0;          //订票客户人数
+int num2=0;          //排队客户人数   
+
+void menu();
+void scline();
+void order();
+void tuipiao();
+void sccli();
+void scque();
+void back();
+void passde();
+
+createFile(struct client cli[]);
+createFilewait( struct queuecli wait[ ]);
+
+
+void menu()
 {
-printf("%8s%10s%8s%6s%6s%8s%6s%6s\n","学号","姓名","性别","数学","英语","计算机","总分","名次");
-}
-
-void menu( )         /*顶层菜单函数*/
-{
-		printf("******** 1. 显示基本信息 ********\n");
-		printf("******** 2. 基本信息管理 ********\n");
-		printf("******** 3. 学生成绩管理 ********\n");
-		printf("******** 4. 考试成绩统计 ********\n");
-     printf("******** 5. 根据条件查询 ********\n");
-		printf("******** 0. 退出         ********\n");
-}
-
-void menuBase( )     /*2、基本信息管理菜单函数*/
-{
-		printf("%%%%%%%% 1. 插入学生记录 %%%%%%%%\n");
-		printf("%%%%%%%% 2. 删除学生记录 %%%%%%%%\n");
-		printf("%%%%%%%% 3. 修改学生记录 %%%%%%%%\n");
-		printf("%%%%%%%% 0. 返回上层菜单 %%%%%%%%\n");
-}
-
-void menuScore( )     /*3、学生成绩管理菜单函数*/
-{
-		printf("@@@@@@@@ 1. 计算学生总分 @@@@@@@@\n");
-		printf("@@@@@@@@ 2. 根据总分排名 @@@@@@@@\n");
-		printf("@@@@@@@@ 0. 返回上层菜单 @@@@@@@@\n");
-}
- 
-void menuCount( )    /*4、考试成绩统计菜单函数*/
-{
-		printf("&&&&&&&& 1. 求课程最高分 &&&&&&&&\n");
-		printf("&&&&&&&& 2. 求课程最低分 &&&&&&&&\n");
-		printf("&&&&&&&& 3. 求课程平均分 &&&&&&&&\n");
-		printf("&&&&&&&& 0. 返回上层菜单 &&&&&&&&\n");
-}
-
-void menuSearch()    /*5、根据条件查询菜单函数*/
-{
-		printf("######## 1. 按学号查询   ########\n");
-		printf("######## 2. 按姓名查询   ########\n");
-		printf("######## 3. 按名次查询   ########\n");
-		printf("######## 0. 返回上层菜单 ########\n");
-}
-
-int baseManage(Student stu[],int n)    	     /*该函数完成基本信息管理*/
-/*按学号进行插入删除修改，学号不能重复*/
-{  
-		int choice,t,find[NUM];
-     Student s;
-do
-	    {   
-menuBase( );                  /*显示对应的二级菜单*/
-printf("choose one operation you want to do:\n");
-		     scanf("%d",&choice);	          /*读入选项*/
-		     switch(choice)
-		     {
-			   case 1:	 readStu(&s,1);       /*读入一条待插入的学生记录*/
-					 n=insertStu(stu,n,s);   /*调用函数插入学生记录*/
-					 break;
-			   case 2:  printf("Input the number deleted\n");
-					 scanf("%ld",&s.num);  /*读入一个待删除的学生学号*/
-					 n=deleteStu(stu,n,s);   /*调用函数删除指定学号的学生记录*/
-					 break;
-			   case 3:  printf("Input the number modified\n");
-					 scanf("%ld",&s.num);  /*读入一个待修改的学生学号*/
-				      t=searchStu(stu,n,s,1,find) ; /*调用函数查找指定学号的学生记录*/
-				      if (t)                 /*如果该学号的记录存在*/
-					 {
-						  readStu(&s,1);   /*读入一条完整的学生记录信息*/
-					      stu[find[0]]=s;    /*将刚读入的记录赋值给需要修改的数组记录*/ 					 
-					  }					 
-					 else                 /*如果该学号的记录不存在*/ 
- printf("this student is not in,can not be modified.\n"); /*输出提示信息*/
-					 break;
-			    case 0: break;
-		    }
-	}while(choice);
-return n;                             /*返回当前操作结束后的实际记录条数*/
-}
-
-void scoreManage(Student stu[],int n)          /*该函数完成学生成绩管理功能*/
-{  
-	int choice;
-	do
+    char c;
+    printf("\n\n                              航空订票系统菜单          \n");
+	printf("\n  ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n");
+	printf("\n     ◇ 1 查询航线\n");
+    printf("\n     ◇ 2 查询订票客户名单\n");
+	printf("\n     ◇ 3 查询等候替补客户名单\n");
+	printf("\n     ◇ 4 订票\n");
+	printf("\n     ◇ 5 退票\n");
+	printf("\n     ◇ 6 退出\n");
+    printf("\n  ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n");
+	printf("\n\n请选择功能选项（1-20）:[  ]\b\b\b ");
+		
+	switch(c=getch())
 	{
-		menuScore( );                        /*显示对应的二级菜单*/
-		printf("choose one operation you want to do:\n");
-		scanf("%d",&choice);	                 /*读入二级选项*/
-		switch(choice)
+	case 49: scline();break;
+    case 50: sccli();break;
+    case 51: scque();break;
+	case 52: order();break;
+	case 53: tuipiao();break;
+	case 54: exit(0);break;
+	default:printf("\n\n*****输入错误！*****\n");system("cls");back();
+	}	
+}
+
+void scline()        //查询航线信息
+{   int i;
+	int city;
+	printf("\n\n                         航空订票系统->航线查询         \n");
+	printf("\n  **********************************************************************\n");
+
+shuru:	printf("\n请选择终点站:[  ]\b\b\b\n");
+	readtxt1();
+    scanf("%d",&city);
+	if(city>0&&city<21)
+	{   
+		printf("\n查询结果：\n");
+		printf("\n终点站：\n");
+	    switch(city)
+
 		{
-			case 1:   calcuTotal(stu,n);         /*求所有学生的总分*/
-					  break;
-			case 2:   calcuRank(stu,n);         /*根据所有学生的总分排名次*/
-				      break;		
-			case 0:   break;
+          	case 1: printf("北京\n\n");break;
+        case 2: printf("上海\n\n");break;
+        case 3: printf("南京\n\n");break;
+		case 4: printf("长沙\n\n");break;
+        case 5: printf("拉萨\n\n");break;
+        case 6: printf("广州\n\n");break;
+		case 7: printf("深圳\n\n");break;
+        case 8: printf("武汉\n\n");break;
+        case 9: printf("苏州\n\n");break;
+		case 10: printf("成都\n\n");break;
+        case 11: printf("重庆\n\n");break;
+        case 12: printf("厦门\n\n");break;
+		case 13: printf("合肥\n\n");break;
+        case 14: printf("南昌\n\n");break;
+        case 15: printf("天津\n\n");break;
+		case 16: printf("西安\n\n");break;
+        case 17: printf("兰州\n\n");break;
+        case 18: printf("昆明\n\n");break;
+        case 19: printf("大理\n\n");break;
+        case 20: printf("香港\n\n");break;
 		}
-	}while(choice);
-}
-
-void printMarkCourse(char *s,double m[3][3],int k)   /*打印分数通用函数，被countManage 调用*/
-{                 /*形式参数k代表输出不同的内容，0、1、2分别对应最高分、最低分、平均分*/
-int i;
-    printf(s);                                  /*这里的s传入的是输出分数的提示信息*/
-    for (i=0;i<3;i++)                           /*i控制哪一门课*/
-		  printf("%10.2lf",m[i][k]);
-	   printf("\n");
-}
-
-void countManage(Student stu[],int n)               /*该函数完成考试成绩统计功能*/
-{
-		int choice;
-		double mark[3][3];
-		do
+        printf("航班号   飞机号     飞机周日	起飞时间   到达时间   余票量\n");
+		for(i=0;i<26;i++)
 		{
-			menuCount( );                        /*显示对应的二级菜单*/
-			calcuMark(mark,stu,n);                 /*调用此函数求三门课的最高、最低、平均值*/
-			printf("choose one operation you want to do:\n");
-			scanf("%d",&choice);
-			switch(choice)
-			{
-				case 1:   printMarkCourse("三门课的最高分分别是:\n",mark,0);  /*输出最高分*/
-				      break;
-				case 2:   printMarkCourse("三门课的最低分分别是:\n",mark,1);  /*输出最低分*/
-				      break;
-				case 3:   printMarkCourse("三门课的平均分分别是:\n",mark,2);  /*输出平均分*/
-				      break;
-				case 0:   break;
-			}
-		}while (choice);
+			if(fliinfo[i].city==city)
+				printf("\n  %d	  %s %13s	%s      %s       %d\n",fliinfo[i].flinum,fliinfo[i].planenum,fliinfo[i].week,fliinfo[i].starttime,fliinfo[i].endtime,fliinfo[i].overplus);
+		}
+
+
+	}
+	else
+	{
+        printf("\n*****输入错误！请重新选择！*****\n");
+	    goto shuru;
+    }
+    back();
+	
 }
 
-void searchManage(Student stu[],int n)               /*该函数完成根据条件查询功能*/
-{
-    int i,choice,findnum,f[NUM];
-Student s;
-	   do
-{
-			menuSearch( );                         /*显示对应的二级菜单*/
-			printf("choose one operation you want to do:\n");
-			scanf("%d",&choice);
-			switch(choice)
+
+
+void order()                    //订票函数
+{   QueuecliType s;                         
+	int m,n,level,op,levelmax,p,i;
+    printf("\n\n                            航空订票系统->订票          \n");
+	printf("\n  **********************************************************************\n");
+
+shuru:	printf("请输入航班号（1-26）:[  ]\b\b\b");
+	scanf("%d",&m);
+	if(m>0&&m<27)
+	{
+	printf("\n请输入您要订票的数量:[  ]\b\b\b");
+	scanf("%d",&n);
+	printf("\n请输入您订票的舱位等级（1-3）:[  ]\b\b\b");
+	scanf("%d",&level);
+	switch(level)
+	{
+	case 1:{levelmax=fliinfo[m-1].levelone;op=fliinfo[m-1].opone;}break;
+    case 2:{levelmax=fliinfo[m-1].leveltwo;op=fliinfo[m-1].optwo;}break;
+    case 3:{levelmax=fliinfo[m-1].levelthree;op=fliinfo[m-1].opthree;}break;
+	}
+     
+	if(n<=op)
+	{   cli[num1].flinum=m;            //登记订票客户信息                                 //登记订票客户信息
+	    cli[num1].tickets=n;
+	    cli[num1].level=level;
+		printf("\n请输入您的姓名： ");
+		scanf("%s",&cli[num1].name);
+		printf("\n请输入您的身份证号码： ");
+		scanf("%s",&cli[num1].id);
+	    num1=num1+1;
+		saveFileCli(cli,1);
+		printf("\n\n订票成功！\n\n");
+		printf("您的预订票舱位等级：%d\n",level);
+		printf("\n您的座位号： ");
+		for(i=1;i<=n;i++)
+			printf("%d   ",(levelmax-op)+i);
+		switch(level)
+		{
+		case  1: fliinfo[m-1].opone=fliinfo[m-1].opone-n;break;
+        case  2: fliinfo[m-1].optwo=fliinfo[m-1].optwo-n;break;
+        case  3: fliinfo[m-1].opthree=fliinfo[m-1].opthree-n;break;
+		}
+		fliinfo[m-1].overplus=fliinfo[m-1].opone+fliinfo[m-1].optwo+fliinfo[m-1].opthree;
+
+	}
+	else
+	{
+		printf("\n*****对不起！余票量少于您的订票额！*****\n\n");
+		printf("是否登记排队候补（1 是  2 否 ）:[  ]\b\b\b");
+		scanf("%d",&p);
+
+		if(p==1)
+		{
+			s.flinum=m;                    //登记排队客户信息
+            s.demand=n;
+			s.level=level;
+            printf("\n请输入您的姓名： ");
+		    scanf("%s",&s.name);
+		    printf("\n请输入您的身份证号码： ");
+		    scanf("%s",&s.id);
+			ListInsert(&queueList,num2,s);//在顺序表queueList中插入一条记录
+			printf("\n请再次确认信息！请输入--\n");
+			readwait(wait,1);
+			saveFileWait(wait,1);
+		    printf("\n\n★★★★★排队登记成功！★★★★★\n\n");
+			num2++;          
+		}
+		
+	}
+	back();
+	
+	}
+	else
+	{
+        printf("\n*****输入错误！请重新选择！*****\n");
+	    goto shuru;
+	}  
+
+}
+
+
+
+
+void tuipiao()                        //退票函数
+{   
+	char a[20],b[20];
+    int c,i,j,p,opl;
+	int t;
+	int flag=0;              //查看是否有退票人记录的标志
+	int flag2=0;             //查看是否有等候替补客户预定已退票的标志
+	QueuecliType k;
+	printf("\n                            航空订票系统->退票          \n");
+	printf("\n  **********************************************************************\n");
+
+	printf("\n请输入您的姓名： ");
+	scanf("%s",&a);
+	printf("\n\n请输入您的身份证号码： ");
+	scanf("%s",&b);
+    printf("\n\n请输入您要退票的航班号（1-8）:[  ]\b\b\b");
+	scanf("%d",&c);
+    printf("\n\n您的订票信息：\n");
+	printf("\n航班号	订票量	舱位等级\n");
+    for(t=0;t<num1;t++)
+	if(c==cli[t].flinum&&strcmp(b,cli[t].id)==0)
+	{printf("%d	%d	%d\n",c,cli[t].tickets,cli[t].level);
+	 flag=1;
+	}
+	if(flag==0)
+	{
+		printf("\n\n没有您的订票记录！\n"); 
+	        back();                       
+	}
+	 else printf("\n\n您确定要退票？（1是 2否）:[  ]\b\b\b");
+          scanf("%d",&p);
+	if(p==1)
+	{
+
+	
+   	for(i=0;i<num1;i++)
+	{
+		if(c==cli[i].flinum&&strcmp(b,cli[i].id)==0)
+		{
+			switch(cli[i].level)
 			{
-				case 1:   printf("Input a student\'s num will be searched:\n");
-				      scanf("%ld",&s.num);         /*输入待查询学生的学号*/
-					  break;
-				case 2:   printf("Input a student\'s name will be searched:\n");
-				      scanf("%s",s.name);	          /*输入待查询学生的姓名*/		  
-				      break;   
-				case 3:   printf("Input a rank will be searched:\n");
-				      scanf("%d",&s.rank);          /*输入待查询学生的名次*/
-					  break;
-				case 0:   break;
+			case 1: {fliinfo[c-1].opone=fliinfo[c-1].opone+cli[i].tickets;
+				     fliinfo[c-1].overplus=fliinfo[c-1].overplus+cli[i].tickets;
+					 opl=fliinfo[c-1].opone;
+					}break;
+			case 2: {fliinfo[c-1].optwo=fliinfo[c-1].optwo+cli[i].tickets;
+				     fliinfo[c-1].overplus=fliinfo[c-1].overplus+cli[i].tickets;
+					 opl=fliinfo[c-1].optwo;
+					}break;
+			case 3: {fliinfo[c-1].opthree=fliinfo[c-1].opthree+cli[i].tickets;
+				     fliinfo[c-1].overplus=fliinfo[c-1].overplus+cli[i].tickets;
+					 opl=fliinfo[c-1].opthree;
+					}break;
 			}
-		 	if (choice>=1&&choice<=3)
-			{ 
-				findnum=searchStu(stu,n,s,choice,f);    /*查找的符合条件元素的下标存于f数组中*/
-				if (findnum)				     /*如果查找成功*/
+			cli[i].flinum=-1;    //退票客户航班号置-1，表示已删除  
+		}
+
+  loop:			for(j=0;j<num2;j++)
+			{
+				if(c==queueList.list[j].flinum&&opl>=queueList.list[j].demand&&cli[i].level==queueList.list[j].level)
 				{
-			   		 printHead( );                  /*打印表头*/
-					 for (i=0;i<findnum;i++)         /*循环控制f数组的下标*/
-	      	 printStu(&stu[f[i]],1);      /*每次输出一条记录*/
+				    cli[num1].flinum=queueList.list[j].flinum;
+                    strcpy(cli[num1].id,queueList.list[j].id);
+                    cli[num1].level=queueList.list[j].level;
+                    strcpy(cli[num1].name,queueList.list[j].name);
+                    cli[num1].tickets=queueList.list[j].demand;
+					num1++;
+                    ListDelete(&queueList,j,&k);
+					 num2--;
+					 flag2=1;  //退的票被排队客户预定标志位置1
+					 
+					 goto loop;
+
 				}
-		    		else
-			    	    printf("this record does not exist!\n"); /*如果查找不到元素，则输出提示信息*/
-		     }		
-	    }while (choice);
+			}
+
+
+	}
+	if(flag2==0)
+	{
+		printf("\n\n★★★★★退票成功！★★★★★\n\n");
+		printf("\n★★★★★没有等候替补客户预定！★★★★★\n\n");
+		back();
+	}
+	else 
+	{
+		printf("\n\n★★★★★退票成功！★★★★★\n\n");
+		printf("\n★★★★★您的退票已被等候替补客户预定！★★★★★\n\n");
+        back();
+
+	}
+
+	}
+	else  back();
+    
+
+
 }
 
-int runMain(Student stu[],int n,int choice)    /*主控模块，对应于一级菜单其下各功能选择执行*/
-{
-		switch(choice)
+
+
+void sccli()                                                   //查询订票客户名单
+{      int p,i,j;
+       int flag=0;
+	   printf("\n\n\n                     航空订票系统->查询订票客户名单          \n");
+	   printf("\n  **********************************************************************\n");
+	   printf("\n查询本次操作订票客户请输入1，查询以前的订票客户名单请输入2\n");
+		  scanf("%d",&j);
+
+		if(j==1)
 		{
-			case 1: printHead( );           /* 1. 显示基本信息*/
-				 sortStu(stu,n,1);         /*按学号由小到大的顺序排序记录*/ 
-          	 printStu(stu,n);          /*按学号由小到大的顺序输出所有记录*/
-					break;
-			case 2: n=baseManage(stu,n);    /* 2. 基本信息管理*/
-			   	     break;
-			case 3: scoreManage(stu,n);     /* 3. 学生成绩管理*/
-					break;
-			case 4: countManage(stu,n);     /* 4. 考试成绩统计*/
-					break;
-			case 5: searchManage(stu,n);     /* 5. 根据条件查询*/
-				     break;
-          case 0: break;
+            printf("\n请输入要查询的航班号（1-26）:[  ]\b\b\b");
+        scanf("%d",&p);
+		if(p>0&&p<27)
+		{
+	    printf("\n\n航班号：%d\n\n",p);
+	    printf("订票客户名单：\n");
+		printf("\n姓名		订票量		舱位等级\n");
+		for(i=0;i<num1;i++)
+			if(p==cli[i].flinum)
+			{
+				printf("%s		%d		%d\n",cli[i].name,cli[i].tickets,cli[i].level);
+				flag=1;
+			}
+			if(flag==0)
+				printf("\n*****无记录！*****\n");
 		}
-		return n;
+		else printf("\n\n*****输入航班号错误！*****\n\n");
+		back();
+		}
+		else readtxt2();		
+		back();
+	
 }
 
-int main( )
+
+
+	
+
+void scque()                                    //查询排队客户名单
 {
-		Student stu[NUM];                /*定义实参一维数组存储学生记录*/
-      int choice,n;
-	 n=readFile(stu);                  /*首先读取文件，记录条数返回赋值给n*/
-	 if (!n)                          /*如果原来的文件为空*/
-	     {
-		    n=createFile(stu);              /*则首先要建立文件，从键盘上读入一系列记录存于文件*/
-}	 	 
-	do
-	     {
-	         menu();                      /*显示主菜单*/
-	         printf("Please input your choice: ");
-	         scanf("%d",&choice);
-	         if (choice>=0&&choice<=5)
-	              n=runMain(stu,n,choice);    /*通过调用此函数进行一级功能项的选择执行*/
-	         else 
-		          printf("error input,please input your choice again!\n");
-	} while (choice);
-	sortStu(stu,n,1);                   /*存入文件前按学号由小到大排序*/ 
-	     saveFile(stu,n);                   /*将结果存入文件*/
-      return 0;
+		int p,i,j;
+		int flag=0;
+		printf("\n\n\n                      航空订票系统->查询排队客户名单          \n");
+  	    printf("\n  **********************************************************************\n");
+		printf("\n查询本次操作排队客户请输入1,查询以前的排队客户名单请输入2\n");
+		  scanf("%d",&j);
+		printf("\n\n请输入要查询的航班号（1-26）:[  ]\b\b\b");
+        scanf("%d",&p);
+		if(j==1)
+		{
+		if(p>0&&p<27)
+		{
+	    printf("\n\n航班号：%d\n\n",p);
+	    printf("等候替补客户名单：\n");
+		printf("\n姓名		需求量		舱位等级\n");
+		for(i=0;i<num2;i++)
+		
+			if(p==queueList.list[i].flinum)
+			{
+				printf("%s		%d		%d\n",queueList.list[i].name,queueList.list[i].demand,queueList.list[i].level);
+				flag=1;
+			}
+			if(flag==0)
+				printf("\n*****无记录！*****\n");
+		} 
+		else printf("\n\n*****输入航班号错误！*****\n\n");
+		back();
+		}
+		else readtxt3();
+		back();
+
+} 
+
+
+
+void back()
+{
+	printf("\n\n《《《《《《任意键返回菜单页！》》》》》》\n");
+    getch();
+	system("cls");
+	menu();
+}
+void passde()
+{
+	int ture;
+	printf("请输入密码！\n");
+	scanf("%d",&PASS);
+	ture=123456;
+	if(PASS==ture)
+	{
+		printf("登入成功！\n");
+	}
+	else
+	{
+		printf("密码错误！\n");
+		exit(0);
+	}
+}
+
+
+void main()
+{
+	system("Color f0");
+	printf("\n                            欢迎进入航空订票系统！ \n");
+	passde();
+    menu();
 }
