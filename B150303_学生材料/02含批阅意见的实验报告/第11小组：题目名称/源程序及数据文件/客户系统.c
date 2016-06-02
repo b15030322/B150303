@@ -6,51 +6,100 @@
 //------------客户订票函数----------//
 void book(train tra[],int n)
 {
-	int i,count;
+	int i,count,choice;
 	char num[10];
 	count=0;
 	system("cls");
 	printf("请输入要订票的列车号");
 	scanf("%s",num);
-	for(i=0;i<=n;i++)
+	printf("请选择要订的票类型：1、一等座；2、二等座");
+	scanf("%d",&choice);
+		switch(choice)
 	{
-		if(strcmp(num,tra[i].number)==0)
+		case 1:
+			for(i=0;i<=n;i++)
 		{
-			tra[i].type1.free--;
-			printf("成功订票");
-			break;			
-		}
-		else
-			count++;
+			if(strcmp(num,tra[i].number)==0)
+			{
+				tra[i].type1.free--;
+				printf("成功订票\n");
+				break;			
+			}
+			else
+				count++;
 		
+		}
+		if(count==n)
+			printf("查询无此车次信息");
+		break;
+		case 2:
+			for(i=0;i<=n;i++)
+		{
+			if(strcmp(num,tra[i].number)==0)
+			{
+				tra[i].type2.free--;
+				printf("成功订票\n");
+				break;			
+			}
+			else
+				count++;
+		
+		}
+		if(count==n)
+			printf("查询无此车次信息");
+		break;
+		default:
+			break;
 	}
-	if(count==n)
-		printf("查询无此车次信息");
-	saveFile(tra,n);
+		saveFile(tra,n);
 }
 //-------------退票函数-----//
 void cancle(train tra[],int n)
 {
-	int i,count;
+	int i,count,choice;
 	char s[10];
 	count=0;
 	printf("请输入要退票的班次:");
 	scanf("%s",s);
-	for(i=0;i<n;i++)
+	printf("请选择要退票类型：1、一等座；2、二等座");
+	scanf("%d",&choice);
+		switch(choice)
 	{
-		if(strcmp(s,tra[i].number)==0)
-		{	
-			tra[i].type1.free++;
-			 printf("退票成功!\n");
+		case 1:
+			for(i=0;i<=n;i++)
+		{
+			if(strcmp(s,tra[i].number)==0)
+			{
+				tra[i].type1.free++;
+				printf("成功退票\n");
+				break;			
+			}
+			else
+				count++;
+		
+		}
+		if(count==n)
+			printf("查询无此车次信息");
+		break;
+		case 2:
+			for(i=0;i<=n;i++)
+		{
+			if(strcmp(s,tra[i].number)==0)
+			{
+				tra[i].type2.free++;
+				printf("成功退票\n");
+				break;			
+			}
+			else
+				count++;
+		
+		}
+		if(count==n)
+			printf("查询无此车次信息");
+		break;
+		default:
 			break;
-		}
-		else
-		{	
-			count++;	
-		}
 	}
-	if(count==n)
-		printf("查询无此车次信息");
 	saveFile(tra,n);
 }
 //-----------------注册函数-------------//

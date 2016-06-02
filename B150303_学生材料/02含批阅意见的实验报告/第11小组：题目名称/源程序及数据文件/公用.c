@@ -43,9 +43,9 @@ int check()
 		else
 			n++;
     if(flag)
-		printf("correct!");
+		printf("correct!\n");
 	else
-		printf("error!");
+		printf("error!\n");
 return flag;
 }
 //--------------一级主菜单---------------//
@@ -222,7 +222,7 @@ void fmenu()
 }
 void smenuone()
 {	
-		space();
+	
 		printf("\t\t   ┌─────────────-┐\n");    
 		printf("\t\t   │   ★欢迎进入管理系统      │\n");
 		printf("\t\t   │   ★请选择管理功能        │\n");
@@ -237,7 +237,7 @@ void smenuone()
 }
 void smenutwo()
 {	
-		space();
+		
 		printf("\t\t   ┌──────────────┐\n");    
 		printf("\t\t   │   ★欢迎进入车票系统       │\n");
 		printf("\t\t   │   ★请选择管理功能         │\n");
@@ -251,7 +251,7 @@ void smenutwo()
 }
 void smenuthree()
 {	
-		space();
+	
 		printf("\t\t   ┌─────────────-┐\n");    
 		printf("\t\t   │   ★欢迎进入订退系统      │\n");
 		printf("\t\t   │   ★请选择管理功能        │\n");

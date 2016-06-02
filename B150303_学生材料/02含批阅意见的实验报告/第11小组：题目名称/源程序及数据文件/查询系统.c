@@ -11,11 +11,11 @@ void put(train tra[],int n)
 	
 	int i;
 
-	printf("车号 |出发时间| 总车程|起始站 |终点站 | 一等座票价| 一等座票数| 二等座票价| 二等座票数");
+	printf("车号  |出发时间 | 总车程|起始站|终点站| 一等座票价| 一等座票数|二等座票价| 二等座票数");
+	printf("\n");
 	for(i=0;i<n;i++)
-	{
-     	printf("\n");
-		printf("%4s | %d : %d | %5d | %4s | %4s | %6.2f |%6d |%6.2f | %6d",tra[i].number,tra[i].hour,tra[i].minute,tra[i].time2,tra[i].start,tra[i].end,tra[i].type1.price,tra[i].type1.free,tra[i].type2.price,tra[i].type2.free);
+	{  	
+		printf("%4s | %d : %d | %5d | %4s | %4s | %9.2f |%10d |%9.2f | %10d\n",tra[i].number,tra[i].hour,tra[i].minute,tra[i].time2,tra[i].start,tra[i].end,tra[i].type1.price,tra[i].type1.free,tra[i].type2.price,tra[i].type2.free);
 	}
 	
 }
@@ -85,8 +85,8 @@ void find_train(train tra[],int n)
 			{
 			if(strcmp(s1,tra[i].number)==0)
 			{
-				printf("车号 出发时间 总车程 起始站 终点站 一等座票价 二等座票价\n");
-				printf("%s %d: %d %d %s %s %6.2f %6.2f ",tra[i].number,tra[i].hour,tra[i].minute,
+				printf("车号  |出发时间 | 总车程|起始站|终点站| 一等座票价| 一等座票数|二等座票价| 二等座票数\n");
+				printf("%4s | %d : %d | %5d | %4s | %4s | %9.2f |%10d |%9.2f | %10d\n",tra[i].number,tra[i].hour,tra[i].minute,
 					tra[i].time2,tra[i].start,
 					tra[i].end,tra[i].type1.price,tra[i].type2.price);
 			}
@@ -99,8 +99,8 @@ void find_train(train tra[],int n)
 			{
 			if(strcmp(s2,tra[i].end)==0)
 			{
-				printf("车号 出发时间 总车程 起始站 终点站 一等座票价 二等座票价\n");
-				printf("%s %d :%d %d %s %s %6.2f %6.2f ",tra[i].number,tra[i].hour,tra[i].minute,
+				printf("车号  |出发时间 | 总车程|起始站|终点站| 一等座票价| 一等座票数|二等座票价| 二等座票数\n");
+				printf("%4s | %d : %d | %5d | %4s | %4s | %9.2f |%10d |%9.2f | %10d\n",tra[i].number,tra[i].hour,tra[i].minute,
 					tra[i].time2,tra[i].start,
 					tra[i].end,tra[i].type1.price,tra[i].type2.price);
 			}
